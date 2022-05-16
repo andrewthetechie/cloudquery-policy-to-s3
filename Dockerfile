@@ -11,8 +11,8 @@ RUN case ${TARGETPLATFORM} in \
          "linux/arm64")  AWSARCH=aarch64 export CQARCH=arm64 ;; \
          *)    ARCH=amd64   ;; \
     esac \
-    && curl "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip" -o "awscliv2.zip" \
-    && curl "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip.sig" -o "awscliv2.sig" \
+    && curl -L "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip" -o "awscliv2.zip" \
+    && curl -L "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip.sig" -o "awscliv2.sig" \
     && gpg --import aws-cli.key \
     && gpg --verify awscliv2.sig awscliv2.zip \
     && unzip -q awscliv2.zip \

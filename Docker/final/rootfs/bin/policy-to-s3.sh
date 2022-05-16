@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Runs a cloudquery policy and 
+# Runs a cloudquery policy and uploads results to s3
 
 rundate=$(date +%s)
 cloudquery --config $CQ_CONFIG_FILE policy "$@" --output-dir ./results

@@ -6,7 +6,8 @@ ARG CLOUDQUERY_VERSION="v0.23.2"
 RUN apt-get update -y \
     && apt-get install -y curl unzip gpg 
 COPY Docker/builder/rootfs /
-RUN case ${TARGETPLATFORM} in \
+RUN echo $TARGETPLATFORM && \
+    case ${TARGETPLATFORM} in \
          "linux/amd64")  AWSARCH=amd64 export CQARCH=amd64  ;; \
          "linux/arm64")  AWSARCH=aarch64 export CQARCH=arm64 ;; \
          *)    ARCH=amd64   ;; \

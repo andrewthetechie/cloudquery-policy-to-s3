@@ -34,10 +34,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          build-args: |
-            "CLOUDQUERY_VERSION=${{ steps.get_tag.outputs.VERSION }}"
+          build-args: "CLOUDQUERY_VERSION=${{ steps.get_tag.outputs.VERSION }}"
           platforms: linux/amd64,linux/arm64
-          context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

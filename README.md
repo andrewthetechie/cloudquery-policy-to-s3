@@ -6,7 +6,7 @@ A cloudquery policy is run and then all results for that run are then uploaded t
 # Usage
 
 ```
-docker run -it -e S3_BUCKET=test andrewthetechie/cloudquery-policy-to-s3:v0.23.2 run github.com/cloudquery-policies/aws//cis_v1.2.0
+docker run -it -v /path/that/contains/cq/config:/opt/cloudquery -e S3_BUCKET=test andrewthetechie/cloudquery-policy-to-s3:v0.23.2 run github.com/cloudquery-policies/aws//cis_v1.2.0
 
 Starting policies run...
 

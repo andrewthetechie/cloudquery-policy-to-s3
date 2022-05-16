@@ -8,9 +8,9 @@ RUN apt-get update -y \
 COPY Docker/builder/rootfs /
 RUN echo $TARGETPLATFORM && \
     case ${TARGETPLATFORM} in \
-         "linux/amd64")  AWSARCH=amd64 export CQARCH=amd64  ;; \
+         "linux/amd64")  AWSARCH=x86_64 export CQARCH=x86_64  ;; \
          "linux/arm64")  AWSARCH=aarch64 export CQARCH=arm64 ;; \
-         *)    ARCH=amd64   ;; \
+         *)    ARCH=x86_64 CQARCH=x86_64  ;; \
     esac \
     && curl -L "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip" -o "awscliv2.zip" \
     && curl -L "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip.sig" -o "awscliv2.sig" \

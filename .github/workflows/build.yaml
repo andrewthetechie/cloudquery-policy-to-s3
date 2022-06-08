@@ -28,6 +28,11 @@ jobs:
         with:
           images: andrewthetechie/cloudquery-policy-to-s3
       - 
+        name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+          # Ignore the failure of a step and avoid terminating the job.
+          continue-on-error: true
+      - 
         name: Get the tag name
         id: get_tag
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}

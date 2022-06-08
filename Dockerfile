@@ -1,29 +1,31 @@
 ARG TARGETPLATFORM="linux/amd64"
-ARG CLOUDQUERY_VERSION="v0.23.2"
+ARG CLOUDQUERY_VERSION="v0.24.11"
 
-FROM bitnami/minideb:bullseye as builder
+FROM bitnami/minideb:bullseye as builderbase
+RUN apt-get update && apt-get install -y curl unzip gpg ca-certificates
 
-COPY Docker/builder/rootfs /
-RUN apt-get update && apt-get install -y curl unzip gpg ca-certificates \
-    && case ${TARGETPLATFORM} in \
-         "linux/amd64")  AWSARCH=x86_64 export CQARCH=x86_64  ;; \
-         "linux/arm64")  AWSARCH=aarch64 export CQARCH=arm64 ;; \
-         *)    ARCH=x86_64 CQARCH=x86_64  ;; \
-    esac \
-    && curl -L "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip" -o "awscliv2.zip" \
-    && curl -L "https://awscli.amazonaws.com/awscli-exe-linux-$AWSARCH.zip.sig" -o "awscliv2.sig" \
-    && gpg --import aws-cli.key \
-    && gpg --verify awscliv2.sig awscliv2.zip \
-    && unzip -q awscliv2.zip \
-    && ./aws/install \
-    && /download-cloudquery.sh
+FROM builderbase as aws-builder
+
+ARG TARGETPLATFORM="linux/amd64"
+ARG CLOUDQUERY_VERSION="v0.24.11"
+
+COPY Docker/aws-builder/rootfs /
+RUN /download-aws.sh
+
+FROM builderbase as cloudquery-builder
+
+ARG TARGETPLATFORM
+ARG CLOUDQUERY_VERSION
+
+COPY Docker/cloudquery-builder/rootfs /
+RUN /download-cloudquery.sh
 
 FROM bitnami/minideb:bullseye
 
 ENV TZ=Etc/UTC
 
-COPY --from=builder /usr/local/aws-cli /usr/local/aws-cli
-COPY --from=builder /cloudquery /bin/cloudquery
+COPY --from=aws-builder /usr/local/aws-cli /usr/local/aws-cli
+COPY --from=cloudquery-builder /cloudquery /bin/cloudquery
 COPY Docker/final/rootfs /
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \

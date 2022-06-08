@@ -3,8 +3,15 @@
 
 set -e
 
-echo $CLOUDQUERY_VERSION
-echo $CQARCH
+echo "Target Platform is: ${TARGETPLATFORM}"
+case ${TARGETPLATFORM} in \
+         "linux/amd64")  CQARCH=x86_64  ;;
+         "linux/arm64")  CQARCH=arm64 ;;
+         *) CQARCH=x86_64  ;;
+esac 
+
+echo "CLOUDQUERY_VERSION is: ${CLOUDQUERY_VERSION}"
+echo "CQARCH is: ${CQARCH}"
 echo "https://github.com/cloudquery/cloudquery/releases/download/$CLOUDQUERY_VERSION/checksums.txt"
 echo "https://github.com/cloudquery/cloudquery/releases/download/$CLOUDQUERY_VERSION/cloudquery_Linux_$CQARCH"
 curl -L "https://github.com/cloudquery/cloudquery/releases/download/$CLOUDQUERY_VERSION/cloudquery_Linux_$CQARCH" -o /cloudquery

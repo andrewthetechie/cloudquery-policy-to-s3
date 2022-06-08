@@ -14,4 +14,5 @@ jobs:
         with:
           token: ${{ secrets.THIS_PAT }}
           repo: cloudquery/cloudquery
-  
+          skip_draft: true
+          skip_prerelease: true

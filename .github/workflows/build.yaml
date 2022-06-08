@@ -27,9 +27,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: andrewthetechie/cloudquery-policy-to-s3
-      - 
+      -
         name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
+        id: caching
+        uses: dsatackey/action-docker-layer-caching@v0.0.11
+        with:
           # Ignore the failure of a step and avoid terminating the job.
           continue-on-error: true
       - 

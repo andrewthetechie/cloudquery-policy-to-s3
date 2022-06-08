@@ -31,9 +31,8 @@ jobs:
         name: Docker layer caching
         id: caching
         uses: satackey/action-docker-layer-caching@v0.0.11
-        with:
-          # Ignore the failure of a step and avoid terminating the job.
-          continue-on-error: true
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
       - 
         name: Get the tag name
         id: get_tag

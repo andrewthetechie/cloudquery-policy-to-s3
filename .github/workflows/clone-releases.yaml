@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Releases
-        uses: andrewthetechie/gha-clone-releases@v1.0.0
+        uses: andrewthetechie/gha-clone-releases@main
         with:
           token: ${{ secrets.THIS_PAT }}
           repo: cloudquery/cloudquery

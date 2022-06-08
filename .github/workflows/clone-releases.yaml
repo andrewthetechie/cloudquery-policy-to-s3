@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Clone Releases from Cloudquery/Cloudquery
 
 on:
   schedule:

@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Releases
-        uses: andrewthetechie/gha-clone-releases@main
+        uses: andrewthetechie/gha-clone-releases@v1.1.0
         with:
           token: ${{ secrets.THIS_PAT }}
           repo: cloudquery/cloudquery
           skip_draft: true
           skip_prerelease: true
+          limit: 10

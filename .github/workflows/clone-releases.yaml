@@ -3,7 +3,7 @@ name: Clone Releases from Cloudquery/Cloudquery
 on:
   schedule:
     # right now we run hourly. I picked 4 after arbitrarily. 4 is a nice number
-    - cron: '4 * * * *'
+    - cron: '4 */2 * * *'
   workflow_dispatch:
 
 jobs:

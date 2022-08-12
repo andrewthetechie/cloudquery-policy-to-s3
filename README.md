@@ -1,3 +1,4 @@
+# ARCHIVED. Cloudquery has changed how policies work and this is no longer needed 
 # cloudquery-policy-to-s3
 A docker container to run CloudQuery policy checks and upload the results to s3
 
